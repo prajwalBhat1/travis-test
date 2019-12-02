@@ -5,7 +5,7 @@ services:
   - docker
   
 script:
-- ./mvnw clean install -B
+- mvn clean package
   
 after_success:
 
