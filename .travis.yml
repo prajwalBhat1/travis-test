@@ -7,7 +7,7 @@ services:
 after_success:
 
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
-- export IMAGE_NAME= https://github.com/prajwalBhat1/travis-test.git
+- export IMAGE_NAME= "https://github.com/prajwalBhat1/travis-test.git"
 - docker build  $IMAGE_NAME
 - docker tag $IMAGE_NAME "pbhatimage"
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
