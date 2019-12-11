@@ -4,13 +4,10 @@ language: java
 services:
   - docker
   
-script:
-- mvn clean package
-  
 after_success:
 
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
-- export IMAGE_NAME=prajwalBhat1/travis-test
+- export IMAGE_NAME=prajwalbhat1/travis-test
 - docker build -t $IMAGE_NAME:$COMMIT   
 - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
