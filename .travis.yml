@@ -4,6 +4,14 @@ language: java
 services:
   - docker
   
+ # env:
+  #  global:
+#   secure: pbhat080513/travis-ci-test
+#     secure: HEROKU_API_KEY
+#     secure: DOCKER_USER
+#     secure: DOCKER_PASS
+#     secure: TEAMS_CHANNEL_URL
+  
 script:
   - mvn test
   - mvn clean package
@@ -14,6 +22,8 @@ before_install:
 after_success:
 
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
-- docker build  https://github.com/prajwalBhat1/travis-test.git -t pbhat080513/travis-ci-test
+- export IMAGE_NAME=prajwalBhat1/travis-ci-test
+- docker build -t $IMAGE_NAME:$COMMIT .
+- docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push pbhat080513/travis-ci-test:latest
+- docker push $IMAGE_NAME
