@@ -4,6 +4,13 @@ language: java
 services:
   - docker
   
+script:
+  - mvn test
+  - mvn clean package
+  
+before_install:
+  - docker pull openjdk:8-jdk-alpine
+  
 after_success:
 
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
