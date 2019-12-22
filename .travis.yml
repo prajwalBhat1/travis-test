@@ -4,12 +4,6 @@ language: java
 services:
   - docker
   
-script:
-  - mvn test
-  - mvn clean package
-  - mkdir -p dpl_cd_upload
-  - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
-  
 before_install:
   - docker pull openjdk:8-jdk-alpine
   
@@ -42,3 +36,7 @@ deploy:
     application: travis-test-code-deploy
     deployment_group: travis-deployment-group
     on: *2
+
+script:
+  - mkdir -p dpl_cd_upload
+  - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
