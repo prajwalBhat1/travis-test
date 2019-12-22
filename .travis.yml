@@ -7,6 +7,8 @@ services:
 script:
   - mvn test
   - mvn clean package
+  - mkdir -p dpl_cd_upload
+  - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
   
 before_install:
   - docker pull openjdk:8-jdk-alpine
@@ -21,9 +23,6 @@ after_success:
 - docker push $IMAGE_NAME
 - docker save $IMAGE_NAME:latest | gzip > latest.tar.gz
 
-before_deploy:
-- mkdir -p dpl_cd_upload
-- mv latest.tar.gz dpl_cd_upload/latest.tar.gz
 
 deploy:
   - provider: s3
