@@ -22,6 +22,7 @@ after_success:
 - docker save $IMAGE_NAME:latest | gzip > latest.tar.gz
 
 before_deploy:
+- mkdir -p dpl_cd_upload
 - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
 
 deploy:
