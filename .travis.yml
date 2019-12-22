@@ -37,6 +37,6 @@ deploy:
     deployment_group: travis-deployment-group
     on: *2
 
-script:
-  - mkdir -p dpl_cd_upload
-  - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
+#script:
+ # - mkdir -p dpl_cd_upload
+ # - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
