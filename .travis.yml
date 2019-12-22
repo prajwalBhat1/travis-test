@@ -37,6 +37,7 @@ deploy:
       repo: prajwalBhat1/travis-test
     bucket: travis-bucket-2
   - provider: codedeploy
+    region: ap-south-1
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: travis-bucket-2
