@@ -42,7 +42,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     bucket: travis-bucket-2
     key: latest.tar.gz
-    bundle_type: tar.gz
+    bundle_type: tgz
     application: travis-test-code-deploy
     deployment_group: travis-deployment-group
     on: *2
