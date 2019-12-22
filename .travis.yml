@@ -4,14 +4,6 @@ language: java
 services:
   - docker
   
- # env:
-  #  global:
-#   secure: pbhat080513/travis-ci-test
-#     secure: HEROKU_API_KEY
-#     secure: DOCKER_USER
-#     secure: DOCKER_PASS
-#     secure: TEAMS_CHANNEL_URL
-  
 script:
   - mvn test
   - mvn clean package
@@ -27,4 +19,26 @@ after_success:
 - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push $IMAGE_NAME
-- docker run -p 8080:8080 $IMAGE_NAME
+- docker save $IMAGE_NAME:latest | gzip > latest.tar.gz
+
+before_deploy:
+- mv latest.tar.gz dpl_cd_upload/latest.tar.gz
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    local_dir: dpl_cd_upload
+    skip_cleanup: true
+    on: &2
+      repo: prajwalBhat1/travis-test
+    bucket: travis-bucket-2
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: travis-bucket-2
+    key: latest.tar.gz
+    bundle_type: tar.gz
+    application: travis-test-code-deploy
+    deployment_group: travis-deployment-group
+    on: *2
