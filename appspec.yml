@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: ./
+    destination: /home/ec2-user/travis-test
+hooks:
+  ApplicationStart:
+    - location: scripts/docker-travis.sh
+      timeout: 3600
