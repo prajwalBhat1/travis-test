@@ -31,11 +31,11 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     local_dir: dpl_cd_upload
-    upload_dir: dpl_cd_upload
+  #  upload_dir: dpl_cd_upload
     skip_cleanup: true
     on: &2
       repo: prajwalBhat1/travis-test
-    bucket: travis-bucket-2/dpl_cd_upload
+    bucket: travis-bucket-2
   - provider: codedeploy
     region: ap-south-1
     access_key_id: $AWS_ACCESS_KEY
