@@ -35,7 +35,7 @@ deploy:
     skip_cleanup: true
     on: &2
       repo: prajwalBhat1/travis-test
-    bucket: travis-bucket-2
+    bucket: travis-bucket-2/dpl_cd_upload
   - provider: codedeploy
     region: ap-south-1
     access_key_id: $AWS_ACCESS_KEY
