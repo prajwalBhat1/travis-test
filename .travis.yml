@@ -20,7 +20,7 @@ after_success:
 - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push $IMAGE_NAME
-- scp file -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com:$IMAGE_NAME:latest
+- scp file -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com:/home/travis/build/prajwalBhat1/travis-test/$IMAGE_NAME:latest
 - docker save $IMAGE_NAME:latest | gzip > latest.tar.gz
 - mkdir -p dpl_cd_upload
 - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
