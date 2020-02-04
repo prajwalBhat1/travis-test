@@ -6,6 +6,8 @@ services:
   
 before_install:
   - docker pull openjdk:8-jdk-alpine
+  - base64 -d my-ec2-key-pair_64 > ./deploy_key
+  - ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com
   
 after_success:
 
