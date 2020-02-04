@@ -7,6 +7,9 @@ services:
 before_install:
   - docker pull openjdk:8-jdk-alpine
   - base64 -d my-ec2-key-pair_64 > /home/travis/build/prajwalBhat1/travis-test/deploy_key
+  - chmod 600 /home/travis/build/prajwalBhat1/travis-test/deploy_key
+  - ssh-add /home/travis/build/prajwalBhat1/travis-test/deploy_key
+  - echo -e "Host ec2-13-233-206-157.ap-south-1.compute.amazonaws.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   
 after_success:
 
@@ -17,8 +20,6 @@ after_success:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push $IMAGE_NAME
 - eval "$(ssh-agent -s)"
-- chmod 600 /home/travis/build/prajwalBhat1/travis-test/deploy_key
-- ssh-add /home/travis/build/prajwalBhat1/travis-test/deploy_key
 - scp file -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com:$IMAGE_NAME
 - docker save $IMAGE_NAME:latest | gzip > latest.tar.gz
 - mkdir -p dpl_cd_upload
