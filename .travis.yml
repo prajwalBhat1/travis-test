@@ -13,7 +13,6 @@ before_install:
   - echo -e "Host ec2-13-233-206-157.ap-south-1.compute.amazonaws.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   
 after_success:
-
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
 - export IMAGE_NAME=pbhat080513/travis-ci-test
 - docker build /home/travis/build/prajwalBhat1/travis-test -t $IMAGE_NAME:latest
@@ -25,8 +24,20 @@ after_success:
  # - mkdir -p dpl_cd_upload
  # - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
 
-script:
-  - ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com
-  - docker pull pbhat080513/travis-ci-test:latest
-  - docker run pbhat080513/travis-ci-test:latest
-  - exit
+#script:
+#  - ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com
+#  - docker pull pbhat080513/travis-ci-test:latest
+#  - docker run pbhat080513/travis-ci-test:latest
+#  - exit
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: docker pull pbhat080513/travis-ci-test:latest
+    on:
+      branch: master
