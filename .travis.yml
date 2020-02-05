@@ -18,7 +18,7 @@ after_success:
 - export IMAGE_NAME=pbhat080513/travis-ci-test
 - docker build /home/travis/build/prajwalBhat1/travis-test -t $IMAGE_NAME:latest
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push $IMAGE_NAME
+- docker push $IMAGE_NAME 
 #- docker save $IMAGE_NAME:latest | gzip > /home/travis/build/prajwalBhat1/travis-test/latest.tar.gz
 
 #before_deploy:
