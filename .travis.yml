@@ -19,9 +19,11 @@ after_success:
 - docker build /home/travis/build/prajwalBhat1/travis-test -t $IMAGE_NAME:latest
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push $IMAGE_NAME
-- cd /home/travis/build/prajwalBhat1/travis-test/
-- docker save $IMAGE_NAME:latest | gzip > /home/travis/build/prajwalBhat1/travis-test/latest.tar.gz
-- scp file -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com:/home/travis/build/prajwalBhat1/travis-test/latest.tar.gz
+#- docker save $IMAGE_NAME:latest | gzip > /home/travis/build/prajwalBhat1/travis-test/latest.tar.gz
+- ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com
+- docker pull pbhat080513/travis-ci-test:latest
+- docker run pbhat080513/travis-ci-test:latest
+- exit
 
 #before_deploy:
  # - mkdir -p dpl_cd_upload
