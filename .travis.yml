@@ -17,12 +17,11 @@ after_success:
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
 - export IMAGE_NAME=pbhat080513/travis-ci-test
 - docker build /home/travis/build/prajwalBhat1/travis-test -t $IMAGE_NAME:latest
-#- docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push $IMAGE_NAME
 - cd /home/travis/build/prajwalBhat1/travis-test/
-- docker save $IMAGE_NAME:latest | gzip > latest.tar.gz
-- scp file -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com:latest.tar.gz
+- docker save $IMAGE_NAME:latest | gzip > /home/travis/build/prajwalBhat1/travis-test/latest.tar.gz
+- scp file -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com:/home/travis/build/prajwalBhat1/travis-test/latest.tar.gz
 
 #before_deploy:
  # - mkdir -p dpl_cd_upload
