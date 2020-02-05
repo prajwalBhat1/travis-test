@@ -20,15 +20,13 @@ after_success:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push $IMAGE_NAME
 #- docker save $IMAGE_NAME:latest | gzip > /home/travis/build/prajwalBhat1/travis-test/latest.tar.gz
-- ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com
-- docker pull pbhat080513/travis-ci-test:latest
-- docker run pbhat080513/travis-ci-test:latest
-- exit
 
 #before_deploy:
  # - mkdir -p dpl_cd_upload
  # - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
 
-#script:
- # - mkdir -p dpl_cd_upload
- # - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
+script:
+  - ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com
+  - docker pull pbhat080513/travis-ci-test:latest
+  - docker run pbhat080513/travis-ci-test:latest
+  - exit
