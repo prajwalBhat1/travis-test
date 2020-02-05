@@ -3,6 +3,9 @@ language: java
 
 services:
   - docker
+
+addons:
+  ssh_known_hosts: ec2-13-233-206-157.ap-south-1.compute.amazonaws.com
   
 before_install:
   - docker pull openjdk:8-jdk-alpine
