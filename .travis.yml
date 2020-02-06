@@ -20,27 +20,11 @@ after_success:
 - export IMAGE_NAME=pbhat080513/travis-ci-test
 - docker build /home/travis/build/prajwalBhat1/travis-test -t $IMAGE_NAME:latest
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push $IMAGE_NAME 
-#- docker save $IMAGE_NAME:latest | gzip > /home/travis/build/prajwalBhat1/travis-test/latest.tar.gz
-
-#before_deploy:
- # - mkdir -p dpl_cd_upload
- # - mv latest.tar.gz dpl_cd_upload/latest.tar.gz
-
-#script:
-#  - ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com
-#  - docker pull pbhat080513/travis-ci-test:latest
-#  - docker run pbhat080513/travis-ci-test:latest
-#  - exit
+- docker push $IMAGE_NAME
 
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com 'docker pull pbhat080513/travis-ci-test:latest | docker run pbhat080513/travis-ci-test:latest'
+    script: ssh -i "deploy_key" ec2-user@ec2-13-233-206-157.ap-south-1.compute.amazonaws.com 'docker pull pbhat080513/travis-ci-test:latest | docker run pbhat080513/travis-ci-test:latest | exit'
     on:
       branch: master
-#  - provider: script
-#    skip_cleanup: true
-#    script: docker pull pbhat080513/travis-ci-test:latest
-#    on:
-#      branch: master
