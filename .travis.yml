@@ -30,6 +30,6 @@ deploy:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: ssh -i "deploy_key" ec2-user@ec2-13-235-238-13.ap-south-1.compute.amazonaws.com 'docker run --name travis-test -d pbhat080513/travis-ci-test:latest'
+    script: ssh -i "deploy_key" ec2-user@ec2-13-235-238-13.ap-south-1.compute.amazonaws.com 'echo "deploying travis-test again" | docker run --name travis-test -d pbhat080513/travis-ci-test:latest'
     on:
       branch: master
