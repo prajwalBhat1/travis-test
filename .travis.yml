@@ -2,7 +2,7 @@ sudo: required
 language: java
 
 services:
-  - docker
+  - docker 
 
 addons:
   ssh_known_hosts: ec2-13-235-238-13.ap-south-1.compute.amazonaws.com
