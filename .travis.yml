@@ -38,3 +38,8 @@ deploy:
     script: ssh -i "deploy_key" ec2-user@ec2-13-235-238-13.ap-south-1.compute.amazonaws.com 'echo "check logs after deployment...." | docker container logs travis-test'
     on:
       branch: master
+  - provider: script
+    skip_cleanup: true
+    script: scp -i "deploy_key" /home/travis/build/prajwalBhat1/travis-test/deploy_key/*.jar ec2-user@ec2-13-235-238-13.ap-south-1.compute.amazonaws.com:/home/ec2-user/jars
+    on:
+      branch: master
